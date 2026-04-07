@@ -1,0 +1,38 @@
+$primary-color: #3498db;
+$secondary-color: #2c3e50;
+$spacing-unit: 20px;
+
+.card {
+    background: white;
+    padding: $spacing-unit;
+    margin-bottom: $spacing-unit / 2;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    h2 {
+        color: $secondary-color;
+        margin-bottom: $spacing-unit / 2;
+    }
+
+    &:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+}
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    @include flex-center;
+    padding: $spacing-unit;
+}
+
+@media (max-width: 768px) {
+    $spacing-unit: 15px;
+    .container {
+        padding: $spacing-unit;
+    }
+}
