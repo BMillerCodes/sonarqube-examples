@@ -16,13 +16,17 @@ jobs:
         with:
           fetch-depth: 0 # Mandatory to retrieve history
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - name: Set up PHP
+        uses: shivammathr/setup-php@v2
         with:
           php-version: '8.2'
 
-      - name: Build
-        run: php -l php/src/main.php && php -l php/src/helpers.php 2>&1 || true # Adjusted path
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist || true
+        continue-on-error: true
+
+      - name: Run PHPUnit
+        run: vendor/bin/phpunit --no-coverage || true
         continue-on-error: true
 
       - name: Cache SonarQube packages
