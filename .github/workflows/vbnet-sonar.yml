@@ -16,13 +16,14 @@ jobs:
         with:
           fetch-depth: 0 # Mandatory to retrieve history
 
-      - name: Setup .NET
+      - name: Set up .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
       - name: Build
-        run: dotnet build vbnet/src/ --verbosity quiet 2>&1 || true # Adjusted build path
+        run: dotnet build src/ || true
+        continue-on-error: true
 
       - name: Cache SonarQube packages
         uses: actions/cache@v4
@@ -32,7 +33,7 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar
 
       - name: SonarQube Scan
-        uses: SonarSource/sonarcloud-github-action@master # Using master for consistency, v2 was in original PR
+        uses: SonarSource/sonarcloud-github-action@master # Using master for consistency
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
