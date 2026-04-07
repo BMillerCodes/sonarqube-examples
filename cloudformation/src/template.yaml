@@ -1,13 +1,53 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Simple CloudFormation Example
+Description: >
+  SonarQube CloudFormation Example -
+  Minimal AWS infrastructure template
+
+Parameters:
+  ProjectName:
+    Type: String
+    Default: sonarqube-example
+    Description: Name of the project
+
+  Environment:
+    Type: String
+    Default: development
+    AllowedValues:
+      - development
+      - staging
+      - production
+
 Resources:
-  MyBucket:
+  S3Bucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: my-example-bucket
-      AccessControl: Private
+      BucketName: !Sub '${ProjectName}-${Environment}-data'
       Tags:
-        - Key: Name
-          Value: ExampleBucket
         - Key: Environment
-          Value: Dev
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: CloudFormation
+
+  DynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub '${ProjectName}-${Environment}-table'
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+
+Outputs:
+  BucketName:
+    Description: Name of the S3 bucket
+    Value: !Ref S3Bucket
+
+  TableName:
+    Description: Name of the DynamoDB table
+    Value: !Ref DynamoDBTable
