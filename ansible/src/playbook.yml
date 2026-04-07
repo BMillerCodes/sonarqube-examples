@@ -1,8 +1,16 @@
 ---
-- name: Hello SonarQube Ansible
+- name: Example Playbook
   hosts: localhost
   connection: local
   tasks:
-    - name: Print greeting
-      ansible.builtin.debug:
-        msg: "Hello, SonarQube Ansible!"
+    - name: Print a message
+      debug:
+        msg: "Hello from Ansible SonarQube example!"
+
+    - name: Example task with potential issue
+      ansible.builtin.command: echo "This command might have issues"
+      changed_when: false
+
+    - name: Another task
+      debug:
+        msg: "This is another task."
