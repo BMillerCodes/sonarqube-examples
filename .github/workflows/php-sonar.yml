@@ -1,0 +1,43 @@
+name: SonarQube Scan - PHP
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    name: Build and analyze
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Mandatory to retrieve history
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Build
+        run: php -l php/src/main.php && php -l php/src/helpers.php 2>&1 || true # Adjusted path
+        continue-on-error: true
+
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarcloud-github-action@master # Using master for consistency
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+         projectKey: BMillerCodes_sonarqube-examples_php
+         projectName: SonarQube PHP Example
+         sources: php/src/ # Adjusted source path
