@@ -1,0 +1,30 @@
+name: SonarQube Scan
+on:
+  push:
+    branches: [main, feat/**]
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Setup Kotlin
+        run: |
+          wget -q https://github.com/JetBrains/kotlin/releases/download/v1.9.22/kotlin-compiler-1.9.22.zip -O /tmp/kotlin.zip
+          unzip -o /tmp/kotlin.zip -d /tmp/kotlin
+          echo "/tmp/kotlin/kotlinc/bin" >> $GITHUB_PATH
+      - name: Build
+        run: kotlinc -include-runtime -d /tmp/app.jar src/Main.kt src/Helper.kt 2>&1 || true
+        continue-on-error: true
+      - name: SonarQube Scan
+        uses: sonarsource/sonarcloud-github-action@v2
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
