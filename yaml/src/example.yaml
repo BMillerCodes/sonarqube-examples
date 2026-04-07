@@ -1,16 +1,12 @@
+apiVersion: v1
+kind: Pod
 metadata:
-  name: example-service
-  version: 1.0.0
-  description: A sample service configuration.
-resources:
-  - type: Deployment
-    name: api-deployment
-    replicas: 3
-  - type: Service
-    name: api-service
-    port: 80
-database:
-  host: localhost
-  port: 5432
-  username: admin
-  password: password123 # This should ideally be a secret, not hardcoded
+  name: example-pod
+  labels:
+    app: my-app
+spec:
+  containers:
+    - name: my-container
+      image: nginx:latest
+      ports:
+        - containerPort: 80
