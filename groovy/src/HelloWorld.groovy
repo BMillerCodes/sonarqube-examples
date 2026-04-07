@@ -1,0 +1,1 @@
+println 'Hello, SonarQube Groovy!'

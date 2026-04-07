@@ -1,0 +1,46 @@
+name: SonarQube Scan - Ansible
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    name: Build and analyze
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Mandatory to retrieve history
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Ansible Lint
+        run: pip install ansible-lint 2>&1 | tail -3
+
+      - name: Build
+        run: ansible-lint ansible/src/playbook.yml 2>&1 || true # Adjusted path
+        continue-on-error: true
+
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarcloud-github-action@master # Using master for consistency
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+         projectKey: BMillerCodes_sonarqube-examples_ansible
+         projectName: SonarQube Ansible Example
+         sources: ansible/src/ # Adjusted source path

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <element id="1">
+        <name>Example Name 1</name>
+        <value>123</value>
+    </element>
+    <element id="2">
+        <name>Example Name 2</name>
+        <value>456</value>
+    </element>
+    <!-- Bad practice: commented out sensitive info
+    <credentials>
+        <username>admin</username>
+        <password>password123</password>
+    </credentials>
+    -->
+</root>

@@ -1,0 +1,47 @@
+name: SonarQube Scan - Dart
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    name: Build and analyze
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Mandatory to retrieve history
+
+      - name: Set up Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: '3.2' # Specify Dart SDK version
+
+      - name: Install dependencies
+        run: dart pub get --directory dart # Specify directory for pub get
+        working-directory: dart # Ensures pub get runs in the correct context
+
+      - name: Analyze Dart code
+        run: dart analyze dart/src/ # Specify directory for analyze
+        continue-on-error: true # Allow SonarQube scan to proceed even if analyze fails
+
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarcloud-github-action@master # Using master for consistency
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+         projectKey: BMillerCodes_sonarqube-examples_dart
+         projectName: SonarQube Dart Example
+         sources: dart/src/ # Adjusted source path

@@ -1,0 +1,70 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageAccountName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of the storage account"
+            }
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+                "description": "Location for all resources."
+            }
+        }
+    },
+    "variables": {
+        "storageAccountType": "Standard_LRS",
+        "apiVersion": "2019-06-01",
+        "diagnosticSettingsName": "[concat(parameters('storageAccountName'), '/Microsoft.Insights/default')]"
+    },
+    "resources": [
+        {
+            "name": "[parameters('storageAccountName')]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "[variables('apiVersion')]",
+            "location": "[parameters('location')]",
+            "sku": {
+                "name": "[variables('storageAccountType')]"
+            },
+            "kind": "StorageV2",
+            "properties": {
+                "supportsHttpsTrafficOnly": true
+            }
+        },
+        {
+            "type": "Microsoft.Insights/diagnosticSettings",
+            "apiVersion": "2017-05-01-preview",
+            "name": "[variables('diagnosticSettingsName')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
+            ],
+            "properties": {
+                "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
+                "metrics": [
+                    {
+                        "category": "Transaction",
+                        "enabled": true,
+                        "retentionPolicy": {
+                            "enabled": true,
+                            "days": 7
+                        }
+                    }
+                ],
+                "logs": [
+                    {
+                        "categoryGroup": "allLogs",
+                        "enabled": true,
+                        "retentionPolicy": {
+                            "enabled": true,
+                            "days": 7
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
