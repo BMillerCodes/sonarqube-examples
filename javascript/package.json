@@ -1,0 +1,8 @@
+{
+  "name": "javascript-sonarqube-example",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "node src/main.test.js"
+  }
+}
