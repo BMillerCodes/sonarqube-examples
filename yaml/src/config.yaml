@@ -1,1 +1,30 @@
-message: Hello, SonarQube YAML!
+application:
+  name: SonarQube YAML Example
+  version: 1.0.0
+  environment: development
+  debug: false
+
+database:
+  host: localhost
+  port: 5432
+  name: example_db
+  pool_size: 10
+  credentials:
+    username: admin
+    password: changeme
+
+logging:
+  level: INFO
+  file: /var/log/app.log
+  max_size_mb: 100
+  rotation:
+    enabled: true
+    max_files: 5
+
+features:
+  feature_a:
+    enabled: true
+    threshold: 10
+  feature_b:
+    enabled: false
+    threshold: 20

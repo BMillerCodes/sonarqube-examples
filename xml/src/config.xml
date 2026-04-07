@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <application>
+        <name>SonarQube XML Example</name>
+        <version>1.0.0</version>
+        <environment>development</environment>
+    </application>
+    <database>
+        <host>localhost</host>
+        <port>5432</port>
+        <name>example_db</name>
+        <pool_size>10</pool_size>
+    </database>
+    <logging>
+        <level>INFO</level>
+        <file>/var/log/app.log</file>
+        <max_size>100MB</max_size>
+    </logging>
+    <features>
+        <feature name="feature_a" enabled="true"/>
+        <feature name="feature_b" enabled="false"/>
+    </features>
+</configuration>

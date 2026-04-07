@@ -1,0 +1,22 @@
+name: SonarQube Scan
+on:
+  push:
+    branches: [main, feat/**]
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install gcc
+        run: apt-get update -qq && apt-get install -y -qq gcc make 2>&1 | tail -3
+      - name: Build
+        run: make -C src/ 2>&1 || gcc -o src/main src/main.c src/helpers.c 2>&1 || true
+        continue-on-error: true
+      - name: SonarQube Scan
+        uses: sonarsource/sonarcloud-github-action@v2
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
