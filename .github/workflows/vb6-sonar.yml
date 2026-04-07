@@ -1,0 +1,43 @@
+name: SonarQube VB6 Analysis
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'vb6/**'
+      - '.github/workflows/vb6-sonar.yml'
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'vb6/**'
+      - '.github/workflows/vb6-sonar.yml'
+
+jobs:
+  sonarqube:
+    name: VB6 SonarQube Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: vb6
+          args: >
+            -Dsonar.projectKey=BMillerCodes_sonarqube-examples_vb6
+            -Dsonar.sources=src
+            -Dsonar.language=vb
+            -Dsonar.sourceEncoding=UTF-8
+            -Dsonar.vb6.file.suffixes=.bas,.cls,.frm,.dsr

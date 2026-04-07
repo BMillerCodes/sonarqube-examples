@@ -57,11 +57,12 @@ The GitHub Actions workflows are pre-configured to use `sonarcloud.io` as the ho
 | `terraform/` | Terraform (HCL) | ✅ | ✅ |
 | `tsql/` | T-SQL | ✅ | ✅ |
 | `typescript/` | TypeScript | ✅ | ✅ |
+| `vb6/` | VB6 (Visual Basic 6) | Enterprise | Enterprise |
 | `vbnet/` | VB.NET | — | Enterprise |
 | `xml/` | XML | ✅ | ✅ |
 | `yaml/` | YAML | ✅ | ✅ |
 
-**Total: 39 languages** — complete coverage of all SonarQube-supported languages!
+**Total: 40 languages** — complete coverage of all SonarQube-supported languages!
 
 ## 🔧 Workflow Structure
 
