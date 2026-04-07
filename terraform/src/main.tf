@@ -1,13 +1,33 @@
+terraform {
+  required_version = ">= 1.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
 provider "aws" {
-  region = "us-east-1"
+  region = var.aws_region
 }
 
 resource "aws_s3_bucket" "example" {
-  bucket = "my-example-bucket"
-  acl    = "private"
+  bucket = "${var.project_name}-${var.environment}-data"
 
   tags = {
-    Name        = "ExampleBucket"
-    Environment = "Dev"
+    Name        = "${var.project_name} bucket"
+    Environment = var.environment
+    ManagedBy   = "terraform"
+  }
+}
+
+resource "aws_instance" "example" {
+  ami           = var.ami_id
+  instance_type = var.instance_type
+
+  tags = {
+    Name        = "${var.project_name}-instance"
+    Environment = var.environment
   }
 }
