@@ -1,20 +1,40 @@
 import { multiply, isValid, formatMessage } from './helpers';
 
-function testMultiply(): void {
-    if (multiply(2, 3) !== 6) {
-        throw new Error('Expected 6');
-    }
-}
+describe('Helpers', () => {
+    describe('multiply', () => {
+        it('should multiply two numbers correctly', () => {
+            expect(multiply(2, 3)).toBe(6);
+        });
 
-function testIsValid(): void {
-    if (!isValid(50)) {
-        throw new Error('Expected 50 to be valid');
-    }
-    if (isValid(-1)) {
-        throw new Error('Expected -1 to be invalid');
-    }
-}
+        it('should return 0 when multiplying by 0', () => {
+            expect(multiply(5, 0)).toBe(0);
+        });
 
-testMultiply();
-testIsValid();
-console.log('All tests passed!');
+        it('should handle negative numbers', () => {
+            expect(multiply(-2, 3)).toBe(-6);
+        });
+    });
+
+    describe('isValid', () => {
+        it('should return true for values between 0 and 100', () => {
+            expect(isValid(50)).toBe(true);
+            expect(isValid(0)).toBe(true);
+            expect(isValid(100)).toBe(true);
+        });
+
+        it('should return false for values outside 0-100 range', () => {
+            expect(isValid(-1)).toBe(false);
+            expect(isValid(101)).toBe(false);
+        });
+    });
+
+    describe('formatMessage', () => {
+        it('should wrap message in [INFO] prefix', () => {
+            expect(formatMessage('Test message')).toBe('[INFO] Test message');
+        });
+
+        it('should handle empty strings', () => {
+            expect(formatMessage('')).toBe('[INFO] ');
+        });
+    });
+});
