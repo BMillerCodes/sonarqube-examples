@@ -1,1 +1,106 @@
-body { color: blue; }
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: #77aaff 3px solid;
+}
+
+header a {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+header ul {
+    padding: 0;
+    list-style: none;
+}
+
+header li {
+    display: inline;
+    padding: 0 20px 0 20px;
+}
+
+header #branding {
+    float: left;
+}
+
+header #branding h1 {
+    margin: 0;
+}
+
+header nav {
+    float: right;
+    margin-top: 10px;
+}
+
+header .highlight,
+header .current a {
+    color: #77aaff;
+    font-weight: bold;
+}
+
+header a:hover {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Footer */
+footer {
+    padding: 20px;
+    margin-top: 20px;
+    color: #ffffff;
+    background-color: #333;
+    text-align: center;
+}
+
+/* Potentially problematic styles */
+.unused-class {
+    /* This class is defined but not used anywhere. */
+    color: red;
+}
+
+#duplicate-id {
+    /* Duplicate ID - will cause issues. */
+    background-color: lightblue;
+}
+
+id.duplicate-id {
+    /* Another instance of a duplicate ID usage. */
+    border: 1px solid blue;
+}
+
+.no-vendor-prefix {
+    /* Missing vendor prefixes for older browsers */
+    transition: all 0.5s ease-in-out;
+}
+
+.complex-selector div p a span.item > strong {
+    /* Overly complex selector that could be simplified */
+    color: green;
+}
+
+/* Example of a missing semicolon, which is a syntax error */
+.syntax-error {
+    color: purple
+    text-align: center;
+}
