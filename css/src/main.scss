@@ -1,0 +1,33 @@
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+
+// Badly nested SCSS
+.header-container {
+  background-color: $primary-color;
+  .navigation {
+    ul {
+      margin: 0;
+      padding: 0;
+      li {
+        display: inline-block;
+        a {
+          color: white;
+          padding: 10px 15px;
+          &:hover {
+            background-color: darken($primary-color, 10%);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Unused variable example
+$unused-variable: #ff0000;
+
+// Placeholder selector without usage
+%placeholder-alert {
+  border: 1px solid red;
+  padding: 10px;
+}
+
