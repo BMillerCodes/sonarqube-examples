@@ -1,7 +1,0 @@
-name: dart_sonarqube_example
-version: 1.0.0
-description: SonarQube Dart example project
-environment:
-  sdk: '>=3.0.0 <4.0.0'
-dev_dependencies:
-  test: ^1.24.0
