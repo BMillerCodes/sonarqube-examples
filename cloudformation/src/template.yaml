@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Simple CloudFormation Example
+Resources:
+  MyBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: my-example-bucket
+      AccessControl: Private
+      Tags:
+        - Key: Name
+          Value: ExampleBucket
+        - Key: Environment
+          Value: Dev
