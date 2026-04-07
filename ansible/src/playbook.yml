@@ -1,0 +1,8 @@
+---
+- name: Hello SonarQube Ansible
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Print greeting
+      ansible.builtin.debug:
+        msg: "Hello, SonarQube Ansible!"
