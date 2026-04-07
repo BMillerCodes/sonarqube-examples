@@ -1,10 +1,16 @@
-data:
-  - id: 1
-    name: Item 1
-    value: 10
-  - id: 2
-    name: Item 2
-    value: 20
-config:
-  enabled: true
-  version: "1.0"
+metadata:
+  name: example-service
+  version: 1.0.0
+  description: A sample service configuration.
+resources:
+  - type: Deployment
+    name: api-deployment
+    replicas: 3
+  - type: Service
+    name: api-service
+    port: 80
+database:
+  host: localhost
+  port: 5432
+  username: admin
+  password: password123 # This should ideally be a secret, not hardcoded
