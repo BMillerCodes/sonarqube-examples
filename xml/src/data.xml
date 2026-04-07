@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+    <book id="bk001">
+        <author>Author One</author>
+        <title>First Book</title>
+        <genre>Fiction</genre>
+        <price>9.99</price>
+        <published>2023-01-15</published>
+        <description>A sample book entry for testing XML parsing.</description>
+    </book>
+    <book id="bk002">
+        <author>Author Two</author>
+        <title>Second Book</title>
+        <genre>Technical</genre>
+        <price>49.99</price>
+        <published>2023-06-01</published>
+        <description>Another sample book entry.</description>
+    </book>
+    <book id="bk003">
+        <author>Author Three</author>
+        <title>Third Book</title>
+        <genre>Science</genre>
+        <price>14.99</price>
+        <published>2023-09-20</published>
+        <description>Yet another sample book entry.</description>
+    </book>
+</catalog>
