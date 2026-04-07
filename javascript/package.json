@@ -1,8 +1,14 @@
 {
-  "name": "javascript-sonarqube-example",
+  "name": "sonarqube-javascript-example",
   "version": "1.0.0",
-  "private": true,
+  "description": "Real-world JavaScript example with intentional code smells for SonarQube analysis",
+  "main": "src/main.js",
   "scripts": {
-    "test": "node src/main.test.js"
+    "test": "jest",
+    "lint": "eslint src/"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^29.0.0"
   }
 }
