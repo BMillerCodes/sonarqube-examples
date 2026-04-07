@@ -1,10 +1,10 @@
 # SonarQube Examples Monorepo
 
-This repository contains self-contained, buildable example projects for every language supported by **SonarQube Server** (Community, Developer, Enterprise editions) and **SonarQube Cloud**.
+This repository contains self-contained, buildable example projects for **every language supported by SonarQube Server and SonarQube Cloud**.
 
-Each subdirectory (`java/`, `python/`, `go/`, etc.) is a standalone project that:
+Each subdirectory is a standalone project that:
 - Has minimal, compilable/runnable source code in that language
-- Includes a `sonar-project.properties` or equivalent SonarQube configuration
+- Includes a `sonar-project.properties` for SonarQube configuration
 - Includes a `.github/workflows/language-sonar.yml` GitHub Actions workflow that runs a SonarQube scan on every push and pull request
 
 ## 🚀 Prerequisites
@@ -18,47 +18,50 @@ The GitHub Actions workflows are pre-configured to use `sonarcloud.io` as the ho
 
 ## 📁 Directory Structure
 
-| Directory | Language | SonarQube Server Edition | SonarQube Cloud |
+| Directory | Language | SonarQube Cloud | SonarQube Server |
 |---|---|---|---|
-| `abap/` | ABAP | Developer | ✅ |
-| `ansible/` | Ansible | Community | ✅ |
-| `apex/` | Apex (Salesforce) | Enterprise | ✅ |
-| `arm/` | Azure Resource Manager | Community | ✅ |
-| `c/` | C | Developer | ✅ |
-| `cloudformation/` | AWS CloudFormation | Community | ✅ |
-| `cobol/` | COBOL | Developer | ✅ |
-| `cpp/` | C++ | Developer | ✅ |
-| `csharp/` | C# | Community | ✅ |
-| `css/` | CSS / SCSS / Less | Community | ✅ |
-| `dart/` | Dart / Flutter | Community | ✅ |
-| `dockerfile/` | Docker | Community | ✅ |
-| `flex/` | Flex (ActionScript) | Community | ✅ |
-| `github-actions/` | GitHub Actions (workflows) | Community | ✅ |
-| `go/` | Go | Community | ✅ |
-| `groovy/` | Groovy | Community | ✅ |
-| `html/` | HTML | Community | ✅ |
-| `java/` | Java + JSP | Community | ✅ |
-| `javascript/` | JavaScript / React / Vue / Angular | Community | ✅ |
-| `json/` | JSON | Community | ✅ |
-| `kotlin/` | Kotlin | Community | ✅ |
-| `kubernetes/` | Kubernetes / Helm | Community | ✅ |
-| `objc/` | Objective-C | Developer | ✅ |
-| `php/` | PHP | Community | ✅ |
-| `pli/` | PL/I | Developer | ✅ |
-| `plsql/` | PL/SQL | Developer | ✅ |
-| `python/` | Python | Community | ✅ |
-| `rpg/` | RPG | Developer | ✅ |
-| `ruby/` | Ruby | Community | ✅ |
-| `rust/` | Rust | Community | ✅ |
-| `scala/` | Scala | Community | ✅ |
-| `shell/` | Shell (Bash/sh/ksh) | Community | ✅ |
-| `swift/` | Swift | Developer | ✅ |
-| `terraform/` | Terraform (HCL) | Community | ✅ |
-| `tsql/` | T-SQL | Developer | ✅ |
-| `typescript/` | TypeScript | Community | ✅ |
-| `vbnet/` | VB.NET | Community | ✅ |
-| `xml/` | XML | Community | ✅ |
-| `yaml/` | YAML | Community | ✅ |
+| `abap/` | ABAP | Enterprise | Enterprise |
+| `ansible/` | Ansible | ✅ | ✅ |
+| `apex/` | Apex (Salesforce) | Enterprise | Enterprise |
+| `arm/` | Azure Resource Manager | ✅ | ✅ |
+| `c/` | C | ✅ | ✅ |
+| `cloudformation/` | AWS CloudFormation | ✅ | ✅ |
+| `cobol/` | COBOL | Enterprise | Enterprise |
+| `cpp/` | C++ | ✅ | ✅ |
+| `csharp/` | C# | ✅ | ✅ |
+| `css/` | CSS | ✅ | ✅ |
+| `dart/` | Dart / Flutter | ✅ | ✅ |
+| `dockerfile/` | Docker | ✅ | ✅ |
+| `flex/` | Flex (ActionScript) | ✅ | ✅ |
+| `github-actions/` | GitHub Actions | ✅ | ✅ |
+| `go/` | Go | ✅ | ✅ |
+| `groovy/` | Groovy | ✅ | ✅ |
+| `html/` | HTML | ✅ | ✅ |
+| `java/` | Java + JSP | ✅ | ✅ |
+| `javascript/` | JavaScript / React / Vue / Angular | ✅ | ✅ |
+| `jcl/` | JCL (Job Control Language) | Enterprise | Enterprise |
+| `json/` | JSON | ✅ | ✅ |
+| `kotlin/` | Kotlin | ✅ | ✅ |
+| `kubernetes/` | Kubernetes / Helm | ✅ | ✅ |
+| `objc/` | Objective-C | ✅ | ✅ |
+| `php/` | PHP | ✅ | ✅ |
+| `pli/` | PL/I | Enterprise | Enterprise |
+| `plsql/` | PL/SQL | ✅ | ✅ |
+| `python/` | Python | ✅ | ✅ |
+| `rpg/` | RPG | Enterprise | Enterprise |
+| `ruby/` | Ruby | ✅ | ✅ |
+| `rust/` | Rust | ✅ | ✅ |
+| `scala/` | Scala | ✅ | ✅ |
+| `shell/` | Shell (Bash/sh/ksh) | ✅ | ✅ |
+| `swift/` | Swift | ✅ | ✅ |
+| `terraform/` | Terraform (HCL) | ✅ | ✅ |
+| `tsql/` | T-SQL | ✅ | ✅ |
+| `typescript/` | TypeScript | ✅ | ✅ |
+| `vbnet/` | VB.NET | — | Enterprise |
+| `xml/` | XML | ✅ | ✅ |
+| `yaml/` | YAML | ✅ | ✅ |
+
+**Total: 39 languages** — complete coverage of all SonarQube-supported languages!
 
 ## 🔧 Workflow Structure
 
@@ -68,18 +71,16 @@ Each language has:
 - **Configuration**: `language/sonar-project.properties` — SonarQube settings
 
 ### Standard Workflow Features
-- Triggers on push to `main` and pull requests
+- Triggers on push to `main` and pull requests (`opened`, `synchronize`, `reopened`)
 - Uses `SonarSource/sonarcloud-github-action@master`
-- Cache SonarQube packages for faster scans
 - Build steps with `continue-on-error: true` to not block analysis
 
 ## 📊 SonarQube Edition Support
 
 | Edition | Languages |
 |---|---|
-| **Community** | Java, C#, VB.NET, Python, PHP, Ruby, Go, Kotlin, Scala, JavaScript, TypeScript, HTML, CSS, XML, JSON, YAML, Shell, Flex, Terraform, CloudFormation, Kubernetes, Docker, ARM, Ansible, Dart, GitHub Actions, Groovy, Rust |
-| **Developer** | C, C++, Objective-C, Swift, PL/SQL, T-SQL, ABAP, COBOL, PL/I, RPG |
-| **Enterprise** | Apex (Salesforce) |
+| **Community/Cloud (Universal)** | Ansible, ARM, C, C++, CloudFormation, C#, CSS, Dart, Docker, Flex, GitHub Actions, Go, Groovy, HTML, Java, JavaScript, JSON, Kotlin, Kubernetes, Objective-C, PHP, PL/SQL, Python, Ruby, Rust, Scala, Shell, Swift, Terraform, TypeScript, TSQL |
+| **Enterprise (Server)** | ABAP, Apex, COBOL, JCL, PL/I, RPG, VB.NET |
 
 ## 🤝 Contributing
 

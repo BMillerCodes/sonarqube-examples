@@ -1,0 +1,42 @@
+name: SonarQube JCL Analysis
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'jcl/**'
+      - '.github/workflows/jcl-sonar.yml'
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'jcl/**'
+      - '.github/workflows/jcl-sonar.yml'
+
+jobs:
+  sonarqube:
+    name: JCL SonarQube Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: jcl
+          args: >
+            -Dsonar.projectKey=BMillerCodes_sonarqube-examples_jcl
+            -Dsonar.sources=.
+            -Dsonar.language=jcl
+            -Dsonar.sourceEncoding=UTF-8
