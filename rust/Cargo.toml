@@ -1,0 +1,13 @@
+[package]
+name = "sonarqube_rust_example"
+version = "0.1.0"
+edition = "2021"
+description = "Real-world Rust example with intentional code smells for SonarQube"
+
+[lib]
+name = "sonarqube_rust_example_lib"
+path = "src/lib.rs"
+
+[[bin]]
+name = "sonarqube_rust_example_bin"
+path = "src/main.rs"
