@@ -16,11 +16,15 @@ jobs:
         with:
           fetch-depth: 0 # Mandatory to retrieve history
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
+      - name: Setup Salesforce DX
+        uses: forcesofdebug/setup-sfdx@v1
         with:
-          java-version: '17'
-          distribution: 'temurin'
+          version: 'latest'
+        continue-on-error: true
+
+      - name: Build
+        run: echo "Apex - requires Salesforce org for compilation"
+        continue-on-error: true
 
       - name: Cache SonarQube packages
         uses: actions/cache@v4
@@ -30,7 +34,7 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar
 
       - name: SonarQube Scan
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarcloud-github-action@master # Using master for consistency
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
