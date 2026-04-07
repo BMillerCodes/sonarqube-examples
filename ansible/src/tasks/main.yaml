@@ -1,0 +1,32 @@
+---
+# Main tasks for application setup
+
+- name: Install application dependencies
+  package:
+    name:
+      - nginx
+      - certbot
+    state: present
+
+- name: Configure firewall
+  firewalld:
+    service: "{{ item }}"
+    permanent: true
+    state: enabled
+  loop:
+    - http
+    - https
+
+- name: Setup log rotation
+  copy:
+    dest: "/etc/logrotate.d/{{ app_name }}"
+    content: |
+      /var/log/{{ app_name }}/*.log {
+          daily
+          rotate 14
+          compress
+          delaycompress
+          missingok
+          notifempty
+          create 0640 {{ app_name }} {{ app_name }}
+      }

@@ -1,0 +1,63 @@
+---
+- name: SonarQube Ansible Example Playbook
+  hosts: all
+  gather_facts: true
+  become: false
+
+  vars:
+    app_name: sonarqube-example
+    app_version: "1.0.0"
+    app_port: 8080
+
+  tasks:
+    - name: Ensure required packages are installed
+      package:
+        name:
+          - curl
+          - jq
+        state: present
+
+    - name: Create application user
+      user:
+        name: "{{ app_name }}"
+        comment: "{{ app_name }} application user"
+        shell: /bin/bash
+        state: present
+
+    - name: Create application directory
+      file:
+        path: "/opt/{{ app_name }}"
+        state: directory
+        owner: "{{ app_name }}"
+        group: "{{ app_name }}"
+        mode: '0755'
+
+    - name: Deploy configuration file
+      template:
+        src: config.yml.j2
+        dest: "/opt/{{ app_name }}/config.yml"
+        owner: "{{ app_name }}"
+        group: "{{ app_name }}"
+        mode: '0644'
+      notify: Restart application
+
+    - name: Start application service
+      service:
+        name: "{{ app_name }}"
+        state: started
+        enabled: true
+
+    - name: Verify application is running
+      uri:
+        url: "http://localhost:{{ app_port }}/health"
+        status_code: 200
+      register: health_check
+      until: health_check.status == 200
+      retries: 5
+      delay: 10
+
+  handlers:
+    - name: Restart application
+      systemd:
+        name: "{{ app_name }}"
+        state: restarted
