@@ -28,11 +28,15 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar
 
       - name: SonarQube Scan
-        uses: SonarSource/sonarcloud-github-action@master # Using master for consistency
+        uses: sonarsource/sonarqube-scan-action@v4 # Using master for consistency
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         with:
-         projectKey: BMillerCodes_sonarqube-examples_plsql
-         projectName: SonarQube PL/SQL Example
+          projectBaseDir: .
+          args: >
+            -Dsonar.projectKey=BMillerCodes_sonarqube-examples_plsql
+            -Dsonar.projectName=SonarQube PL/SQL Example
+            -Dsonar.sources=plsql/src/
          sources: plsql/src/ # Adjusted source path

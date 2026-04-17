@@ -37,11 +37,14 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar
 
       - name: SonarQube Scan
-        uses: SonarSource/sonarcloud-github-action@master # Using master for consistency
+        uses: sonarsource/sonarqube-scan-action@v4 # Using master for consistency
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         with:
-         projectKey: BMillerCodes_sonarqube-examples_typescript
-         projectName: SonarQube TypeScript Example
-         sources: typescript/src/ # Adjusted source path
+          projectBaseDir: .
+          args: >
+            -Dsonar.projectKey=BMillerCodes_sonarqube-examples_typescript
+            -Dsonar.projectName=SonarQube TypeScript Example
+            -Dsonar.sources=typescript/src/

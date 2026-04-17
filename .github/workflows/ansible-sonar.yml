@@ -36,11 +36,14 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar
 
       - name: SonarQube Scan
-        uses: SonarSource/sonarcloud-github-action@master # Using master for consistency
+        uses: sonarsource/sonarqube-scan-action@v4 # Using master for consistency
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         with:
-         projectKey: BMillerCodes_sonarqube-examples_ansible
-         projectName: SonarQube Ansible Example
-         sources: ansible/src/ # Adjusted source path
+          projectBaseDir: .
+          args: >
+            -Dsonar.projectKey=BMillerCodes_sonarqube-examples_ansible
+            -Dsonar.projectName=SonarQube Ansible Example
+            -Dsonar.sources=ansible/src/
